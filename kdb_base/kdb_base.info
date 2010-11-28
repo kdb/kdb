@@ -1,0 +1,13 @@
+core = "6.x"
+dependencies[] = "ding_base"
+;These additional modules have been added to the Copenhagen Ding! site
+;Some dependencies are included but not active as they may not be support on all platforms
+dependencies[] = "ding_borger_api"
+dependencies[] = "ding_wysiwyg_node_picker"
+dependencies[] = "backup_migrate"
+;dependencies[] = "memcache"
+dependencies[] = "scheduler"
+;dependencies[] = "securepages"
+description = "Base module providing configuration for the Copenhagen Ding! site"
+name = "KDB base"
+package = "Copenhagen"

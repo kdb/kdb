@@ -1,0 +1,9 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Base Copenhagen module
+ *
+ * Provides date formats and other things shared by all Copenhagen Ding! modules.
+ */
