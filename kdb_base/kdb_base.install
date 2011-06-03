@@ -9,3 +9,9 @@
  * their own module.
  */
 
+/**
+ * Install better_messages module
+ */
+function kdb_base_update_6000() {
+    drupal_install_modules(array('better_messages'));
+}

@@ -3,6 +3,7 @@ dependencies[] = "ding_base"
 ;These additional modules have been added to the Copenhagen Ding! site
 ;Some dependencies are included but not active as they may not be support on all platforms
 dependencies[] = "backup_migrate"
+dependencies[] = "better_messages"
 dependencies[] = "ding_borger_api"
 dependencies[] = "ding_wysiwyg_node_picker"
 ;dependencies[] = "memcache"
