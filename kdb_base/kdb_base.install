@@ -15,3 +15,10 @@
 function kdb_base_update_6000() {
     drupal_install_modules(array('better_messages'));
 }
+
+/**
+ * Install KDB panels and event modules
+ */
+function kdb_base_update_6001() {
+    drupal_install_modules(array('kdb_event', 'kdb_panels'));
+}

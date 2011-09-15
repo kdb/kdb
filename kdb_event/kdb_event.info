@@ -1,0 +1,7 @@
+core = "6.x"
+dependencies[] = "ding_event"
+description = "Customizations of events for Copenhagen libraries"
+features[views][] = "kdb_event_list"
+features[views_api][] = "api:2"
+name = "KDB Event"
+package = "Copenhagen"

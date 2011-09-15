@@ -1,0 +1,5 @@
+core = "6.x"
+dependencies[] = panels
+description = "Customizations of panels for Copenhagen libraries"
+name = "KDB Event"
+package = "Copenhagen"
