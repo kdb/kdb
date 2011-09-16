@@ -7,3 +7,17 @@
  *
  * Provides date formats and other things shared by all Copenhagen Ding! modules.
  */
+
+/**
+ * Implementation of hook_imagecache_default_presets_alter().
+ */
+function kdb_base_imagecache_default_presets_alter(&$presets) {
+  // Remove desaturation action from default ding_tabroll preset
+  if (isset($presets['460_240_crop'])) {
+    foreach ($presets['460_240_crop']['actions'] as $key => $action) {
+      if ($action['action'] == 'imagecache_desaturate') {
+        unset($presets['460_240_crop']['actions'][$key]);
+      }
+    }
+  }
+}
