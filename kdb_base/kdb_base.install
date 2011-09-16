@@ -22,3 +22,10 @@ function kdb_base_update_6000() {
 function kdb_base_update_6001() {
     drupal_install_modules(array('kdb_event', 'kdb_panels'));
 }
+
+/**
+ * Install Ding Tabroll
+ */
+function kdb_base_update_6002() {
+    drupal_install_modules(array('ding_tabroll'));
+}

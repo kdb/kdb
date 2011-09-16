@@ -23,7 +23,7 @@ function kdb_panels_default_page_manager_handlers() {
     'relationships' => array(),
   );
   $display = new panels_display;
-  $display->layout = 'threecol_33_34_33_stacked';
+  $display->layout = 'threecol_left_stacked';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -108,14 +108,11 @@ function kdb_panels_default_page_manager_handlers() {
     $pane = new stdClass;
     $pane->pid = 'new-4';
     $pane->panel = 'top';
-    $pane->type = 'carousel';
-    $pane->subtype = 'carousel';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'tabroll-panel_pane_1';
     $pane->shown = TRUE;
     $pane->access = array();
-    $pane->configuration = array(
-      'override_title' => 0,
-      'override_title_text' => '',
-    );
+    $pane->configuration = array();
     $pane->cache = array();
     $pane->style = array(
       'settings' => NULL,
@@ -128,7 +125,6 @@ function kdb_panels_default_page_manager_handlers() {
   $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
-
   $export['kdb_front_panel_panel_page'] = $handler;
 
   return $export;

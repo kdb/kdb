@@ -1,5 +1,8 @@
 core = "6.x"
-dependencies[] = panels
+dependencies[] = "page_manager"
+dependencies[] = "panels"
 description = "Customizations of panels for Copenhagen libraries"
+features[ctools][] = "page_manager:pages_default:1"
+features[page_manager_handlers][] = "kdb_front_panel_panel_page"
 name = "KDB Event"
 package = "Copenhagen"
