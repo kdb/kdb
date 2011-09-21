@@ -29,3 +29,10 @@ function kdb_base_update_6001() {
 function kdb_base_update_6002() {
     drupal_install_modules(array('ding_tabroll'));
 }
+
+/*
+ * Install addthis module
+ */
+function kdb_base_update_6003() {
+    drupal_install_modules(array('kdb_addthis'));
+}

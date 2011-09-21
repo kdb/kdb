@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Addthis module integration for KDB.
+ *
+ * Addthis normally create the button either via hook_link() or via a
+ * block. The panels that show nodes in Ding doesn't show links, and adding
+ * the block to all the panels means having to fork the ding repo when
+ * enabling addthis. We get around this here by calling addthis_link() and
+ * adding its link to the content.
+ */
+
+include_once('kdb_addthis.features.inc');
+
+/**
+ * Implementation of hook_nodeapi().
+ *
+ * Add addthis button to content.
+ */
+function kdb_addthis_nodeapi(&$node, $op, $a3, $a4) {
+  if ($op == 'view') {
+    $link = addthis_link('node', $node, $a3);
+    if (!empty($link['addthis']) && !empty($link['addthis']['title']) && isset($link['addthis']['html']) && $link['addthis']['html']) {
+      $node->content['addthis'] = array(
+        '#value' => $link['addthis']['title'],
+        '#weight' => 10,
+      );
+    }
+  }
+}
