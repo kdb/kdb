@@ -13,26 +13,26 @@
  * Install better_messages module
  */
 function kdb_base_update_6000() {
-    drupal_install_modules(array('better_messages'));
+  drupal_install_modules(array('better_messages'));
 }
 
 /**
  * Install KDB panels and event modules
  */
 function kdb_base_update_6001() {
-    drupal_install_modules(array('kdb_event', 'kdb_panels'));
+  drupal_install_modules(array('kdb_event', 'kdb_panels'));
 }
 
 /**
  * Install Ding Tabroll
  */
 function kdb_base_update_6002() {
-    drupal_install_modules(array('ding_tabroll'));
+  drupal_install_modules(array('ding_tabroll'));
 }
 
 /*
  * Install addthis module
  */
 function kdb_base_update_6003() {
-    drupal_install_modules(array('kdb_addthis'));
+  drupal_install_modules(array('addthis', 'kdb_addthis'));
 }
