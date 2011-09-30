@@ -65,7 +65,7 @@ function kdb_feeds_views_default_views() {
     'type' => 'none',
   ));
   $handler->override_option('cache', array(
-    'type' => 'none',
+    'type' => 'rules',
   ));
   $handler->override_option('title', 'Indhold til mobil-app');
   $handler->override_option('empty', 'Ingen nyheder udvalgt.');
