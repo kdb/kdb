@@ -36,3 +36,10 @@ function kdb_base_update_6002() {
 function kdb_base_update_6003() {
   drupal_install_modules(array('addthis', 'kdb_addthis'));
 }
+
+/**
+ * Install Ding e-resources and faqs.
+ */
+function kdb_base_update_6003() {
+    drupal_install_modules(array('ding_eresource', 'ding_faq'));
+}
