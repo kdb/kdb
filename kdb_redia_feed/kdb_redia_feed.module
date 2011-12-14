@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * Implementation of hook_views_api().
+ */
+function kdb_redia_feed_views_api() {
+  return array(
+    'api' => '2',
+    'path' => drupal_get_path('module', 'kdb_redia_feed') . '/plugins',
+  );
+}
+
+/**
+ * Implementation of hook_views_plugins
+ */
+function kdb_redia_feed_views_plugins() {
+  return array(
+    'module' => 'views',
+    'row' => array(
+      'kdb_redia_rss' => array(
+        'title' => t('Redia node'),
+        'help' => t('Display the node with standard special redia rss format.'),
+        'handler' => 'kdb_redia_feed_plugin_row_node_rss',
+        'path' => drupal_get_path('module', 'kdb_redia_feed') . '/plugins',
+        'parent' => 'node_rss',
+        'theme' => 'views_view_row_rss',
+        'base' => array('node'), // only works with 'node' as base.
+        'uses options' => TRUE,
+        'type' => 'feed',
+        'help topic' => 'style-node-rss',
+      ),
+    ),
+  );
+}
+                              

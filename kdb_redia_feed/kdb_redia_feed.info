@@ -1,0 +1,6 @@
+core = "6.x"
+dependencies[] = "views"
+description = "Add special handler to create a RSS feed for Redia with Views"
+name = "KDB Redia feed"
+package = "Copenhagen"
+                              
