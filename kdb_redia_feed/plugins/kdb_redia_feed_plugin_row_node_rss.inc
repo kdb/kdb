@@ -122,22 +122,26 @@ class kdb_redia_feed_plugin_row_node_rss extends views_plugin_row_node_rss {
     if ($node->type == 'event' && isset($library)) {
       $item->elements[] = array(
         'key' => 'redia-rss:arrangement-location',
+        'namespace' => array('xmlns:redia-rss' => 'http://redia.dk'),
         'value' => $library->location['street'] . ' ' . $library->location['postal_code'] . ' ' . $library->location['city'],
       );
     }
-    if ($node->type == 'article') {
+    if ($node->type == 'article' && !empty($node->kdb_redia_feed_cat)) {
       $item->elements[] = array(
         'key' => 'redia-rss:category-id',
-        'value' => 'Placeholder awaiting ids from redia',
+        'namespace' => array('xmlns:redia-rss' => 'http://redia.dk'),
+        'value' => $node->kdb_redia_feed_cat,
       );
     }
     if (!empty($node->field_datetime[0])) {
       $item->elements[] = array(
         'key' => 'redia-rss:arrangement-starttime',
+        'namespace' => array('xmlns:redia-rss' => 'http://redia.dk'),
         'value' => strtotime($node->field_datetime[0]['value']),
       );
       $item->elements[] = array(
         'key' => 'redia-rss:arrangement-endtime',
+        'namespace' => array('xmlns:redia-rss' => 'http://redia.dk'),
         'value' => strtotime($node->field_datetime[0]['value2']),
       );
     }
