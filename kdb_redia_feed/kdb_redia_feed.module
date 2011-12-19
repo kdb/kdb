@@ -134,4 +134,5 @@ function kdb_redia_feed_views_plugins() {
     ),
   );
 }
-                              
+
+include_once('kdb_redia_feed.features.inc');
