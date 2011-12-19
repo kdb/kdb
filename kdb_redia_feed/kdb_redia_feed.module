@@ -1,6 +1,108 @@
 <?php
 
 /**
+ * Implements hook_menu().
+ */
+function kdb_redia_feed_menu() {
+  $items = array();
+
+  $items['admin/settings/kdb_redia_feed'] = array(
+    'title' => 'KDB redia feed settings',
+    'description' => 'Settings for the KDB redia feed module.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kdb_redia_feed_settings_form'),
+    'access arguments' => array('access administration pages'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_perm().
+ */
+function kdb_redia_feed_perm() {
+  return array('input redia app setting for nodes');
+}
+
+/**
+ * General settings form.
+ */
+function kdb_redia_feed_settings_form() {
+  $form = array();
+  $form['kdb_redia_feed_nodes'] = array(
+    '#options' => node_get_types('names'),
+    '#type' => 'checkboxes',
+    '#default_value' => variable_get('kdb_redia_feed_nodes', array()),
+    '#title' => t('Select which node types that should use the redia app category'),
+  );
+
+  $form['kdb_redia_feed_default'] = array(
+    '#options' => kdb_redia_feed_categories(),
+    '#type' => 'select',
+    '#default_value' => variable_get('kdb_redia_feed_default', 'bahgf'),
+    '#title' => t('Select default placement for app placement.'),
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Utility function to get the possible node app plaement options.
+ */
+function kdb_redia_feed_categories() {
+  return array(
+    'bahgf' => 'Mobil app kvadrat 1 (Øverste venstre)',
+    'bahgg' => 'Mobil app kvadrat 2 (Øverste højre)',
+    'bahgh' => 'Mobil app kvadrat 3 (Nederste venstre)',
+    'bahgi' => 'Mobil app kvadrat 4 (Nederste højre)',
+  );
+}
+
+/**
+ * Implements hook_nodeapi().
+ */
+function kdb_redia_feed_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
+  switch ($op) {
+    case 'load':
+      $cat = db_result(db_query('SELECT catagory FROM {kdb_redia_feed_cat} WHERE nid = %d', $nid));
+      $node->kdb_redia_feed_cat = $cat ? $cat : variable_get('kdb_redia_feed_default', 'bahgf');
+      break;
+    case 'insert':
+      if (!empty($node->kdb_redia_feed_cat)) {
+        $record = array('nid' => $node->nid, 'catagory' => $node->kdb_redia_feed_cat);
+        drupal_write_record('kdb_redia_feed_cat', $record);
+      }
+      break;
+    case 'update':
+      if (!empty($node->kdb_redia_feed_cat)) {
+        db_query("UPDATE {kdb_redia_feed_cat} SET catagory = '%s' WHERE nid = %d;", $node->kdb_redia_feed_cat, $node->nid);
+        if (!db_affected_rows()) {
+          $record = array('nid' => $node->nid, 'catagory' => $node->kdb_redia_feed_cat);
+          drupal_write_record('kdb_redia_feed_cat', $record);
+        }
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function kdb_redia_feed_form_alter(&$form, &$form_state, $form_id) {
+  if (strpos($form_id, 'node_form') !== FALSE) {
+    if (in_array($form['#node']->type, array_filter(variable_get('kdb_redia_feed_nodes', array())))) {
+      $form['kdb_redia_feed_cat'] = array(
+        '#type' => 'select',
+        '#title' => t('Select iPhone app placement'),
+        '#options' => kdb_redia_feed_categories(),
+        '#default_value' => !empty($node->kdb_redia_feed_cat) ? $node->kdb_redia_feed_cat : '',
+        '#access' => user_access('input redia app setting for nodes'),
+      );
+    }
+  }
+}
+
+/**
  * Implementation of hook_views_api().
  */
 function kdb_redia_feed_views_api() {
