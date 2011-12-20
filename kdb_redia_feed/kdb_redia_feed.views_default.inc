@@ -631,69 +631,6 @@ function kdb_redia_feed_views_default_views() {
       'relationship' => 'none',
     ),
   ));
-  $handler->override_option('arguments', array(
-    'field_library_ref_nid' => array(
-      'default_action' => 'ignore',
-      'style_plugin' => 'default_summary',
-      'style_options' => array(),
-      'wildcard' => 'all',
-      'wildcard_substitution' => 'All',
-      'title' => '',
-      'breadcrumb' => '',
-      'default_argument_type' => 'fixed',
-      'default_argument' => '',
-      'validate_type' => 'node',
-      'validate_fail' => 'not found',
-      'break_phrase' => 0,
-      'not' => 0,
-      'id' => 'field_library_ref_nid',
-      'table' => 'node_data_field_library_ref',
-      'field' => 'field_library_ref_nid',
-      'relationship' => 'none',
-      'default_options_div_prefix' => '',
-      'default_argument_user' => 0,
-      'default_argument_fixed' => '',
-      'default_argument_php' => '',
-      'validate_argument_node_type' => array(
-        'library' => 'library',
-        'campaign' => 0,
-        'article' => 0,
-        'feature' => 0,
-        'profile' => 0,
-        'topic' => 0,
-        'flexifield_link' => 0,
-        'flexifield_ting_refs' => 0,
-        'flexifield_text' => 0,
-        'event' => 0,
-        'page' => 0,
-      ),
-      'validate_argument_node_access' => 0,
-      'validate_argument_nid_type' => 'nid',
-      'validate_argument_vocabulary' => array(
-        4 => 0,
-        5 => 0,
-        1 => 0,
-        2 => 0,
-      ),
-      'validate_argument_type' => 'tid',
-      'user_argument_type' => '',
-      'restrict_user_roles' => 0,
-      'user_roles' => array(),
-      'validate_argument_php' => '',
-      'validate_user_argument_type' => 'uid',
-      'validate_user_roles' => array(
-        2 => 0,
-        4 => 0,
-        5 => 0,
-        6 => 0,
-      ),
-      'override' => array(
-        'button' => 'Override',
-      ),
-      'validate_argument_transform' => 0,
-      'validate_user_restrict_roles' => 0,
-    ),
-  ));
   $handler->override_option('filters', array(
     'status' => array(
       'operator' => '=',
@@ -781,7 +718,6 @@ function kdb_redia_feed_views_default_views() {
     'separator' => '',
   ));
   $handler = $view->new_display('feed', 'Redia feed', 'feed_5');
-  $handler->override_option('arguments', array());
   $handler->override_option('title', 'Arrangementer forside feed');
   $handler->override_option('style_plugin', 'rss');
   $handler->override_option('style_options', array(
