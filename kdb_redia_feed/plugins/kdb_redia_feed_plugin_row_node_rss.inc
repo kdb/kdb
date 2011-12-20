@@ -167,7 +167,6 @@ class kdb_redia_feed_plugin_row_node_rss extends views_plugin_row_node_rss {
         $item->description = '';
         break;
     }
-    dd(theme($this->theme_functions(), $this->view, $this->options, $item));
     
     return theme($this->theme_functions(), $this->view, $this->options, $item);
   }
