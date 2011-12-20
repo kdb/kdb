@@ -103,16 +103,6 @@ function kdb_redia_feed_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Implementation of hook_views_api().
- */
-function kdb_redia_feed_views_api() {
-  return array(
-    'api' => '2',
-    'path' => drupal_get_path('module', 'kdb_redia_feed') . '/plugins',
-  );
-}
-
-/**
  * Implementation of hook_views_plugins
  */
 function kdb_redia_feed_views_plugins() {
