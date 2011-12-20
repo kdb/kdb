@@ -64,20 +64,20 @@ function kdb_redia_feed_categories() {
 function kdb_redia_feed_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
   switch ($op) {
     case 'load':
-      $cat = db_result(db_query('SELECT catagory FROM {kdb_redia_feed_cat} WHERE nid = %d', $nid));
+      $cat = db_result(db_query('SELECT category FROM {kdb_redia_feed_cat} WHERE nid = %d', $nid));
       $node->kdb_redia_feed_cat = $cat ? $cat : variable_get('kdb_redia_feed_default', 'bahgf');
       break;
     case 'insert':
       if (!empty($node->kdb_redia_feed_cat)) {
-        $record = array('nid' => $node->nid, 'catagory' => $node->kdb_redia_feed_cat);
+        $record = array('nid' => $node->nid, 'category' => $node->kdb_redia_feed_cat);
         drupal_write_record('kdb_redia_feed_cat', $record);
       }
       break;
     case 'update':
       if (!empty($node->kdb_redia_feed_cat)) {
-        db_query("UPDATE {kdb_redia_feed_cat} SET catagory = '%s' WHERE nid = %d;", $node->kdb_redia_feed_cat, $node->nid);
+        db_query("UPDATE {kdb_redia_feed_cat} SET category = '%s' WHERE nid = %d;", $node->kdb_redia_feed_cat, $node->nid);
         if (!db_affected_rows()) {
-          $record = array('nid' => $node->nid, 'catagory' => $node->kdb_redia_feed_cat);
+          $record = array('nid' => $node->nid, 'category' => $node->kdb_redia_feed_cat);
           drupal_write_record('kdb_redia_feed_cat', $record);
         }
       }

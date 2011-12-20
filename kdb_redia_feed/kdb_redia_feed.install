@@ -29,7 +29,7 @@ function kdb_redia_feed_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
-      'catagory' => array(
+      'category' => array(
         'desctiption' => 'The Redia category which determines the node placement in the iPhone app.',
         'type' => 'varchar',
         'length' => '255',
