@@ -80,7 +80,6 @@ class kdb_redia_feed_plugin_row_node_rss extends views_plugin_row_node_rss {
 
     // Allow modules to modify the fully-built node.
     node_invoke_nodeapi($node, 'alter', $teaser, FALSE);
-
     $item = new stdClass();
     $item->title = $node->title;
     $item->link = url("node/$row->nid", array('absolute' => TRUE));

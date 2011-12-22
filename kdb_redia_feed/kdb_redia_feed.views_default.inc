@@ -355,7 +355,7 @@ function kdb_redia_feed_views_default_views() {
     'perm' => 'access content',
   ));
   $handler->override_option('cache', array(
-    'type' => 'rules',
+    'type' => 'none',
   ));
   $handler->override_option('empty', 'Ingen blogindlæg fundet.');
   $handler->override_option('empty_format', '1');
@@ -702,7 +702,7 @@ function kdb_redia_feed_views_default_views() {
     'type' => 'none',
   ));
   $handler->override_option('cache', array(
-    'type' => 'rules',
+    'type' => 'none',
   ));
   $handler->override_option('title', 'Arrangementer');
   $handler->override_option('empty', 'Ingen kommende arrangementer.');

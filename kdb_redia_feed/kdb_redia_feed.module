@@ -36,13 +36,6 @@ function kdb_redia_feed_settings_form() {
     '#title' => t('Select which node types that should use the redia app category'),
   );
 
-  $form['kdb_redia_feed_default'] = array(
-    '#options' => kdb_redia_feed_categories(),
-    '#type' => 'select',
-    '#default_value' => variable_get('kdb_redia_feed_default', 'bahgf'),
-    '#title' => t('Select default placement for app placement.'),
-  );
-
   return system_settings_form($form);
 }
 
@@ -51,6 +44,7 @@ function kdb_redia_feed_settings_form() {
  */
 function kdb_redia_feed_categories() {
   return array(
+    '' => 'Standard liste visning',
     'bahgf' => 'Mobil app kvadrat 1 (Øverste venstre)',
     'bahgg' => 'Mobil app kvadrat 2 (Øverste højre)',
     'bahgh' => 'Mobil app kvadrat 3 (Nederste venstre)',
@@ -64,8 +58,8 @@ function kdb_redia_feed_categories() {
 function kdb_redia_feed_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
   switch ($op) {
     case 'load':
-      $cat = db_result(db_query('SELECT category FROM {kdb_redia_feed_cat} WHERE nid = %d', $nid));
-      $node->kdb_redia_feed_cat = $cat ? $cat : variable_get('kdb_redia_feed_default', 'bahgf');
+      $cat = db_result(db_query('SELECT category FROM {kdb_redia_feed_cat} WHERE nid = %d', $node->nid));
+      $node->kdb_redia_feed_cat = $cat ? $cat : '';
       break;
     case 'insert':
       if (!empty($node->kdb_redia_feed_cat)) {
