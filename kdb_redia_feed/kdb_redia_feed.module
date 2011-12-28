@@ -89,7 +89,7 @@ function kdb_redia_feed_form_alter(&$form, &$form_state, $form_id) {
         '#type' => 'select',
         '#title' => t('Select iPhone app placement'),
         '#options' => kdb_redia_feed_categories(),
-        '#default_value' => !empty($node->kdb_redia_feed_cat) ? $node->kdb_redia_feed_cat : '',
+        '#default_value' => !empty($form['#node']->kdb_redia_feed_cat) ? $form['#node']->kdb_redia_feed_cat : '',
         '#access' => user_access('input redia app setting for nodes'),
       );
     }
