@@ -46,8 +46,8 @@ projects[tinymce_node_picker][subdir] = "contrib"
 projects[tinymce_node_picker][version] = "2.1"
 
 ; Additional contrib modules.
-projects[backup_migrate][subdir] = "contrib"
-projects[backup_migrate][version] = "2.4"
+projects[backup_migrate][subdir] = contrib
+projects[backup_migrate][version] = 2.5
 
 projects[better_messages][subdir] = contrib
 projects[better_messages][version] = 1.13
@@ -72,7 +72,7 @@ projects[mobile_tools][subdir] = contrib
 projects[mobile_tools][version] = 2.3
 
 projects[browscap][subdir] = contrib
-projects[browscap][version] = 1.4
+projects[browscap][version] = 1.5
 
 projects[alternator][type] = theme
 projects[alternator][download][type] = git
