@@ -39,8 +39,7 @@ projects[ding_library_hours][download][revision] = "v1.0.0"
 projects[ding_tabroll][type] = "module"
 projects[ding_tabroll][download][type] = "git"
 projects[ding_tabroll][download][url] = "https://github.com/kdb/ding_tabroll.git"
-; There is currently no tags for ding_tabroll so use a SHA.
-projects[ding_tabroll][download][revision] = "77b9762"
+projects[ding_tabroll][download][revision] = v1.0.0
 
 projects[ding_wysiwyg_node_picker][type] = "module"
 projects[ding_wysiwyg_node_picker][download][type] = "git"
