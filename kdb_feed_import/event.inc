@@ -1,0 +1,168 @@
+<?php
+/**
+ * @file
+ * Import event feeds.
+ */
+
+/**
+ * Base class for all our migrations.
+ */
+abstract class KDBFeedImportBase extends XMLMigration {
+  public function __construct() {
+    parent::__construct();
+
+    // The who's who for this migration.
+    $this->team = array(
+      new MigrateTeamMember('Mikkel Høgh', 'mikkel@revealit.dk', t('Implementor')),
+    );
+
+    // The path to the migration files.
+    $this->migration_files_path = file_directory_path() . '/smsq_migrate/';
+  }
+}
+
+/**
+ * KDBEventFeedSource.
+ */
+class KDBFeedImportSource extends MigrateSource{
+  protected $position = 0;
+  protected $entries = array();
+
+  /**
+   * The URL of the feed we're importing.
+   *
+   * @var string
+   */
+  protected $feedURL;
+
+  public function __construct($feed_url) {
+    $this->feedURL = $feed_url;
+
+    // Fetch the feed XML.
+    $request = drupal_http_request($this->feedURL);
+
+    // Convert to DOM document 
+    $feed = new DOMDocument();
+    $feed->loadXML($request->data);
+
+    foreach ($feed->getElementsByTagName('entry') as $entry) {
+      $this->entries[] = (object) array(
+        'id' => $entry->getElementsByTagName('id')->item(0)->nodeValue,
+        'title' => $entry->getElementsByTagName('title')->item(0)->nodeValue,
+        'published' => $entry->getElementsByTagName('published')->item(0)->nodeValue,
+        'updated' => $entry->getElementsByTagName('updated')->item(0)->nodeValue,
+        'author' => $entry->getElementsByTagName('author')->item(0)->nodeValue,
+        'summary' => $entry->getElementsByTagName('summary')->item(0)->nodeValue,
+        'content' => $entry->getElementsByTagName('content')->item(0)->nodeValue,
+        'startdate' => $entry->getElementsByTagName('startdate')->item(0)->nodeValue,
+        'enddate' => $entry->getElementsByTagName('enddate')->item(0)->nodeValue,
+      );
+    }
+
+    dpm($this->entries[0]);
+  }
+
+  public function fields() {
+    return array(
+      'id',
+      'title',
+      'published',
+      'updated',
+      'author',
+      'summary',
+      'content',
+      'startdate',
+      'enddate',
+      'ticketlink',
+      'address',
+      'email',
+      'phone',
+      'price',
+    );
+  }
+
+  public function performRewind() {
+    $this->position = 0;
+  }
+
+  public function computeCount() {
+    return count($this->entries);
+  }
+
+  public function getNextRow() {
+    $position = $this->position;
+
+    if (isset($this->entries[$position])) {
+      // Increment the position, so the next call will return the next entry.
+      $this->position++;
+
+      return $this->entries[$position];
+    }
+  }
+}
+
+/**
+ * Base class for article migrations.
+ */
+class KDBEventFeedImport extends KDBFeedImportBase {
+  public function __construct() {
+    parent::__construct();
+
+    $this->description = 'Migrate events from event feeds.';
+
+    // The source ID here is the one retrieved from the XML feed, and is
+    // used to identify the specific item's file
+    $this->map = new MigrateSQLMap($this->getMachineName(),
+      array(
+        'id' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+        )
+      ),
+      MigrateDestinationNode::getKeySchema()
+    );
+
+    // URL for event feed.
+    $this->list_url = variable_get('kdb_feed_import_event_url', FALSE);
+    $this->item_url = $this->list_url;
+
+    // Migrate to event nodes.
+    $this->destination = new MigrateDestinationNode('event');
+
+    $this->source = new KDBFeedImportSource(variable_get('kdb_feed_import_event_url', FALSE));
+
+    // Maps the source fields to node values.
+    $this->addFieldMapping('title', 'title');
+    $this->addFieldMapping('body', 'content');
+    $this->addFieldMapping('created', 'published');
+    $this->addFieldMapping('changed', 'updated');
+    $this->addFieldMapping('price', 'field_entry_price');
+    $this->addFieldMapping('summary', 'field_teaser');
+    $this->addFieldMapping('author', 'name');
+  }
+
+  /**
+   * Alter each node before saving.
+   *
+   * Here we do the manual conversions not possible with addFieldMapping.
+   */
+  public function prepare(stdClass $node, stdClass $row) {
+    // Create the node as published.
+    $node->status = 1;
+
+    // Decode HTML entities from title and body.
+    $node->title = html_entity_decode($node->title);
+    $node->body = html_entity_decode($node->body);
+
+    // We assume content is in Danish.
+    $node->language = 'da';
+
+    // Use bibliotek.kk.dks default text format for editors.
+    $node->format = 3;
+
+    // Start and end time are in the same field.
+    $node->field_datetime[0]['value'] = $row->startdate;
+    $node->field_datetime[0]['value2'] = $row->enadate;
+  }
+}

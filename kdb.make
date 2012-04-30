@@ -50,17 +50,26 @@ projects[tinymce_node_picker][subdir] = "contrib"
 projects[tinymce_node_picker][version] = "2.1"
 
 ; Additional contrib modules.
+projects[autoload][subdir] = contrib
+projects[autoload][version] = 2.1
+
 projects[backup_migrate][subdir] = contrib
 projects[backup_migrate][version] = 2.5
 
 projects[better_messages][subdir] = contrib
 projects[better_messages][version] = 1.13
 
+projects[dbtng][subdir] = contrib
+projects[dbtng][version] = 1.0-rc4
+
 projects[l10n_update][subdir] = contrib
 projects[l10n_update][version] = 1.0-beta3
 
 projects[memcache][subdir] = contrib
 projects[memcache][version] = 1.10
+
+projects[migrate][subdir] = contrib
+projects[migrate][version] = 2.3
 
 projects[scheduler][subdir] = "contrib"
 projects[scheduler][version] = "1.8"

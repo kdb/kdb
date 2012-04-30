@@ -1,0 +1,10 @@
+name = KDB feed import
+description = Import content from Atom feeds.
+package = Copenhagen
+core = 6.x
+php = 5.2
+dependencies[] = ding_event
+dependencies[] = ding_event_feed
+dependencies[] = migrate
+files[] = kdb_feed_import.module
+files[] = event.inc

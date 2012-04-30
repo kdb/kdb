@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * KDB feed import module.
+ */
+
+/**
+ * Implements hook_migrate_api().
+ */
+function kdb_feed_import_migrate_api() {
+  return array(
+    'api' => 2,
+  );
+}
