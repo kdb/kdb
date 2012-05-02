@@ -45,21 +45,24 @@ class KDBFeedImportSource extends MigrateSource{
     $feed = new DOMDocument();
     $feed->loadXML($request->data);
 
-    foreach ($feed->getElementsByTagName('entry') as $entry) {
-      $this->entries[] = (object) array(
-        'id' => $entry->getElementsByTagName('id')->item(0)->nodeValue,
-        'title' => $entry->getElementsByTagName('title')->item(0)->nodeValue,
-        'published' => $entry->getElementsByTagName('published')->item(0)->nodeValue,
-        'updated' => $entry->getElementsByTagName('updated')->item(0)->nodeValue,
-        'author' => $entry->getElementsByTagName('author')->item(0)->nodeValue,
-        'summary' => $entry->getElementsByTagName('summary')->item(0)->nodeValue,
-        'content' => $entry->getElementsByTagName('content')->item(0)->nodeValue,
-        'startdate' => $entry->getElementsByTagName('startdate')->item(0)->nodeValue,
-        'enddate' => $entry->getElementsByTagName('enddate')->item(0)->nodeValue,
-      );
-    }
+    $institutions = array();
 
-    dpm($this->entries[0]);
+    foreach ($feed->getElementsByTagName('entry') as $element) {
+      $entry = (object) array(
+        'id' => $element->getElementsByTagName('id')->item(0)->nodeValue,
+        'title' => $element->getElementsByTagName('title')->item(0)->nodeValue,
+        'published' => $element->getElementsByTagName('published')->item(0)->nodeValue,
+        'updated' => $element->getElementsByTagName('updated')->item(0)->nodeValue,
+        'author' => $element->getElementsByTagName('author')->item(0)->nodeValue,
+        'summary' => $element->getElementsByTagName('summary')->item(0)->nodeValue,
+        'content' => $element->getElementsByTagName('content')->item(0)->nodeValue,
+        'startdate' => $element->getElementsByTagName('startdate')->item(0)->nodeValue,
+        'enddate' => $element->getElementsByTagName('enddate')->item(0)->nodeValue,
+        'institution' => $element->getElementsByTagName('institution')->item(0)->getAttribute('id'),
+      );
+
+      $this->entries[] = $entry;
+    }
   }
 
   public function fields() {
@@ -131,6 +134,7 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $this->destination = new MigrateDestinationNode('event');
 
     $this->source = new KDBFeedImportSource(variable_get('kdb_feed_import_event_url', FALSE));
+    $this->institutionMap = variable_get('kdb_feed_import_instiution_map', array());
 
     // Maps the source fields to node values.
     $this->addFieldMapping('title', 'title');
@@ -164,5 +168,10 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     // Start and end time are in the same field.
     $node->field_datetime[0]['value'] = $row->startdate;
     $node->field_datetime[0]['value2'] = $row->enadate;
+
+    // Map the foreign site's institution ID to a local node ID.
+    if (!empty($this->institutionMap[$row->institution])) {
+      $node->field_library_ref[0]['nid'] = $this->institutionMap[$row->institution];
+    }
   }
 }
