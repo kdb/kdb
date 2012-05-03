@@ -86,8 +86,18 @@ function kdb_feeds_views_default_views() {
     'mission_description' => FALSE,
     'description' => '',
   ));
-  $handler->override_option('row_plugin', 'node_rss');
-  $handler->override_option('row_options', array());
+  $handler->override_option('row_plugin', 'ding_event_feed_row_atom');
+  $handler->override_option('row_options', array(
+    'relationship' => 'none',
+    'item_length' => 'default',
+    'ding_audience' => '5',
+    'ding_keywords' => '4',
+    'ding_tags' => '2',
+    'ding_teaser' => '',
+    'ding_image' => '',
+    'ding_date' => '',
+    'ding_entry_price' => '',
+  ));
   $handler->override_option('path', 'kdb_feeds/event.xml');
   $handler->override_option('menu', array(
     'type' => 'none',
