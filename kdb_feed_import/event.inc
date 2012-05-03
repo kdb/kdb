@@ -147,6 +147,19 @@ class KDBEventFeedImport extends KDBFeedImportBase {
   }
 
   /**
+   * Convert ISO8601 timestamp to a naive format so MySQL can understand it.
+   */
+  public static function convertTimestamp($timestamp) {
+    // Nothing to do here.
+    if (empty($timestamp)) {
+      return;
+    }
+
+    $time = strtotime($timestamp);
+    return date('Y-m-d H:i:s', $time);
+  }
+
+  /**
    * Alter each node before saving.
    *
    * Here we do the manual conversions not possible with addFieldMapping.
@@ -166,8 +179,8 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $node->format = 3;
 
     // Start and end time are in the same field.
-    $node->field_datetime[0]['value'] = $row->startdate;
-    $node->field_datetime[0]['value2'] = $row->enadate;
+    $node->field_datetime[0]['value'] = $this::convertTimestamp($row->startdate);
+    $node->field_datetime[0]['value2'] = $this::convertTimestamp($row->enadate);
 
     // Map the foreign site's institution ID to a local node ID.
     if (!empty($this->institutionMap[$row->institution])) {
