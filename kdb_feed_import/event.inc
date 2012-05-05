@@ -141,9 +141,9 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $this->addFieldMapping('body', 'content');
     $this->addFieldMapping('created', 'published');
     $this->addFieldMapping('changed', 'updated');
-    $this->addFieldMapping('price', 'field_entry_price');
-    $this->addFieldMapping('summary', 'field_teaser');
-    $this->addFieldMapping('author', 'name');
+    $this->addFieldMapping('field_entry_price', 'price');
+    $this->addFieldMapping('field_teaser', 'summary');
+    $this->addFieldMapping('name', 'author');
   }
 
   /**
