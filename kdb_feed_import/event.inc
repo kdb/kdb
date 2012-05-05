@@ -144,6 +144,14 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $this->addFieldMapping('field_entry_price', 'price');
     $this->addFieldMapping('field_teaser', 'summary');
     $this->addFieldMapping('name', 'author');
+
+    // These fields do not appear in the field, so just assign a default value.
+    // Use bibliotek.kk.dks default text format for editors.
+    $this->addFieldMapping('format')->defaultValue(3);
+    // We assume content is in Danish.
+    $this->addFieldMapping('language')->defaultValue('da');
+    // Create the node as published.
+    $this->addFieldMapping('status')->defaultValue(1);
   }
 
   /**
@@ -165,18 +173,9 @@ class KDBEventFeedImport extends KDBFeedImportBase {
    * Here we do the manual conversions not possible with addFieldMapping.
    */
   public function prepare(stdClass $node, stdClass $row) {
-    // Create the node as published.
-    $node->status = 1;
-
     // Decode HTML entities from title and body.
     $node->title = html_entity_decode($node->title);
     $node->body = html_entity_decode($node->body);
-
-    // We assume content is in Danish.
-    $node->language = 'da';
-
-    // Use bibliotek.kk.dks default text format for editors.
-    $node->format = 3;
 
     // Start and end time are in the same field.
     $node->field_datetime[0]['value'] = $this::convertTimestamp($row->startdate);
