@@ -178,8 +178,8 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $node->body = html_entity_decode($node->body);
 
     // Start and end time are in the same field.
-    $node->field_datetime[0]['value'] = $this::convertTimestamp($row->startdate);
-    $node->field_datetime[0]['value2'] = $this::convertTimestamp($row->enadate);
+    $node->field_datetime[0]['value'] = self::convertTimestamp($row->startdate);
+    $node->field_datetime[0]['value2'] = self::convertTimestamp($row->enadate);
 
     // Map the foreign site's institution ID to a local node ID.
     if (!empty($this->institutionMap[$row->institution])) {
