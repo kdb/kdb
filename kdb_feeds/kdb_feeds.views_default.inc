@@ -17,17 +17,6 @@ function kdb_feeds_views_default_views() {
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('relationships', array(
-    'nid' => array(
-      'label' => 'Indholdselement',
-      'required' => 0,
-      'id' => 'nid',
-      'table' => 'comments',
-      'field' => 'nid',
-      'override' => array(
-        'button' => 'Tilsidesæt',
-      ),
-      'relationship' => 'none',
-    ),
     'destid1' => array(
       'id' => 'destid1',
       'table' => 'migrate_map_kdbeventfeedimport',
