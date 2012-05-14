@@ -58,6 +58,7 @@ class KDBFeedImportSource extends MigrateSource{
         'content' => $element->getElementsByTagName('content')->item(0)->nodeValue,
         'startdate' => $element->getElementsByTagName('startdate')->item(0)->nodeValue,
         'enddate' => $element->getElementsByTagName('enddate')->item(0)->nodeValue,
+        'price' => $element->getElementsByTagName('price')->item(0)->nodeValue,
         'institution' => $element->getElementsByTagName('institution')->item(0)->getAttribute('id'),
       );
 
@@ -184,6 +185,22 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     // Map the foreign site's institution ID to a local node ID.
     if (!empty($this->institutionMap[$row->institution])) {
       $node->field_library_ref[0]['nid'] = $this->institutionMap[$row->institution];
+    }
+
+    if (!empty($price)) {
+      
+      $matches = array();
+
+      // field_entry_price is supposed to be a number, so we sanitise it.
+      if (preg_match('/(\d\d+(?:,\d\d)?)/', str_replace('.', '', $price), $matches) && !empty($matches[1])) {
+        $node->field_entry_price[0]['value'] = str_replace(',', '.', $matches[1]);
+
+        // Add the price info to the body text.
+        $node->body = $node->body . "\n\n\n\n<p><strong>Pris:</strong> " . $price . '</p>';
+      }
+      else {
+        $node->field_entry_price[0]['value'] = 0;
+      }
     }
   }
 }
