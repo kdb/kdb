@@ -5,6 +5,24 @@
  */
 
 /**
+ * Implements hook_nodeapi().
+ */
+function kdb_feed_import_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  if ($op == 'prepare' && $node->type == 'event' && !empty($node->nid)) {
+    // Check if this is a migrated event node, and if so, warn against
+    // editing it, as changes may be overwritten.
+    $query = db_query('
+      SELECT sourceid1 FROM {migrate_map_kdbeventfeedimport}
+      WHERE destid1 = %d
+    ', $node->nid);
+
+    if ($original = db_result($query)) {
+      drupal_set_message('Dette arrangement er importeret fra et andet site. Ændrer du det her, kan dine ændringer blive overskrevet af andre ændringer fra det oprindelige site. ' . l('Se originalen', $original) . '.', 'warning');
+    }
+  }
+}
+
+/**
  * Implements hook_migrate_api().
  */
 function kdb_feed_import_migrate_api() {
