@@ -37,6 +37,7 @@ class KDBFeedImportSource extends MigrateSource{
 
   public function __construct($feed_url) {
     $this->feedURL = $feed_url;
+    $this->institutionMap = variable_get('kdb_feed_import_instiution_map', array());
 
     // Fetch the feed XML.
     $request = drupal_http_request($this->feedURL);
@@ -46,6 +47,7 @@ class KDBFeedImportSource extends MigrateSource{
     $feed->loadXML($request->data);
 
     $institutions = array();
+
 
     foreach ($feed->getElementsByTagName('entry') as $element) {
       $entry = (object) array(
@@ -59,10 +61,17 @@ class KDBFeedImportSource extends MigrateSource{
         'startdate' => $element->getElementsByTagName('startdate')->item(0)->nodeValue,
         'enddate' => $element->getElementsByTagName('enddate')->item(0)->nodeValue,
         'price' => $element->getElementsByTagName('price')->item(0)->nodeValue,
-        'institution' => $element->getElementsByTagName('institution')->item(0)->getAttribute('id'),
       );
 
-      $this->entries[] = $entry;
+      $institution = $element->getElementsByTagName('institution')->item(0)->getAttribute('id');
+
+      // Map the foreign site's institution ID to a local node ID.
+      if (!empty($this->institutionMap[$institution])) {
+        $entry->institution = $this->institutionMap[$institution];
+
+        // Only import events that references an existing institution.
+        $this->entries[] = $entry;
+      }
     }
   }
 
@@ -135,7 +144,6 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $this->destination = new MigrateDestinationNode('event');
 
     $this->source = new KDBFeedImportSource(variable_get('kdb_feed_import_event_url', FALSE));
-    $this->institutionMap = variable_get('kdb_feed_import_instiution_map', array());
 
     // Maps the source fields to node values.
     $this->addFieldMapping('title', 'title');
@@ -145,6 +153,7 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $this->addFieldMapping('field_entry_price', 'price');
     $this->addFieldMapping('field_teaser', 'summary');
     $this->addFieldMapping('name', 'author');
+    $this->addFieldMapping('field_library_ref', 'institution');
 
     // These fields do not appear in the field, so just assign a default value.
     // Use bibliotek.kk.dks default text format for editors.
@@ -181,11 +190,6 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     // Start and end time are in the same field.
     $node->field_datetime[0]['value'] = self::convertTimestamp($row->startdate);
     $node->field_datetime[0]['value2'] = self::convertTimestamp($row->enadate);
-
-    // Map the foreign site's institution ID to a local node ID.
-    if (!empty($this->institutionMap[$row->institution])) {
-      $node->field_library_ref[0]['nid'] = $this->institutionMap[$row->institution];
-    }
 
     if (!empty($price)) {
       
