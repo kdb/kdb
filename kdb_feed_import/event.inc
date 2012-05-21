@@ -54,7 +54,6 @@ class KDBFeedImportSource extends MigrateSource {
 
     $institutions = array();
 
-
     foreach ($feed->getElementsByTagName('entry') as $element) {
       $entry = (object) array(
         'id' => $element->getElementsByTagName('id')->item(0)->nodeValue,
@@ -204,15 +203,13 @@ class KDBEventFeedImport extends KDBFeedImportBase {
    * Here we do the manual conversions not possible with addFieldMapping.
    */
   public function prepare(stdClass $node, stdClass $row) {
-    dpm($node);
-    dpm($row);
     // Decode HTML entities from title and body.
     $node->title = html_entity_decode($node->title);
     $node->body = html_entity_decode($node->body);
 
     // Start and end time are in the same field.
     $node->field_datetime[0]['value'] = self::convertTimestamp($row->startdate);
-    $node->field_datetime[0]['value2'] = self::convertTimestamp($row->enadate);
+    $node->field_datetime[0]['value2'] = self::convertTimestamp($row->enddate);
 
     if (!empty($price)) {
 
