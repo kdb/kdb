@@ -8,6 +8,9 @@
  * Base class for all our migrations.
  */
 abstract class KDBFeedImportBase extends XMLMigration {
+  /**
+   * Basic migration configuration.
+   */
   public function __construct() {
     parent::__construct();
 
@@ -24,7 +27,7 @@ abstract class KDBFeedImportBase extends XMLMigration {
 /**
  * KDBEventFeedSource.
  */
-class KDBFeedImportSource extends MigrateSource{
+class KDBFeedImportSource extends MigrateSource {
   protected $position = 0;
   protected $entries = array();
 
@@ -35,6 +38,9 @@ class KDBFeedImportSource extends MigrateSource{
    */
   protected $feedURL;
 
+  /**
+   * Instantiate the MigrateSource by loading and parsing the feed.
+   */
   public function __construct($feed_url) {
     $this->feedURL = $feed_url;
     $this->institutionMap = variable_get('kdb_feed_import_instiution_map', array());
@@ -42,7 +48,7 @@ class KDBFeedImportSource extends MigrateSource{
     // Fetch the feed XML.
     $request = drupal_http_request($this->feedURL);
 
-    // Convert to DOM document 
+    // Convert to DOM document.
     $feed = new DOMDocument();
     $feed->loadXML($request->data);
 
@@ -75,6 +81,9 @@ class KDBFeedImportSource extends MigrateSource{
     }
   }
 
+  /**
+   * Return the list of fields this source provides.
+   */
   public function fields() {
     return array(
       'id',
@@ -94,14 +103,23 @@ class KDBFeedImportSource extends MigrateSource{
     );
   }
 
+  /**
+   * Restart the migration.
+   */
   public function performRewind() {
     $this->position = 0;
   }
 
+  /**
+   * Return number of entries.
+   */
   public function computeCount() {
     return count($this->entries);
   }
 
+  /**
+   * Get the next entry to be migrated.
+   */
   public function getNextRow() {
     $position = $this->position;
 
@@ -118,20 +136,23 @@ class KDBFeedImportSource extends MigrateSource{
  * Base class for article migrations.
  */
 class KDBEventFeedImport extends KDBFeedImportBase {
+  /**
+   * Configure the migration.
+   */
   public function __construct() {
     parent::__construct();
 
     $this->description = 'Migrate events from event feeds.';
 
     // The source ID here is the one retrieved from the XML feed, and is
-    // used to identify the specific item's file
+    // used to identify the specific item's file.
     $this->map = new MigrateSQLMap($this->getMachineName(),
       array(
         'id' => array(
           'type' => 'varchar',
           'length' => 255,
           'not null' => TRUE,
-        )
+        ),
       ),
       MigrateDestinationNode::getKeySchema()
     );
@@ -183,6 +204,8 @@ class KDBEventFeedImport extends KDBFeedImportBase {
    * Here we do the manual conversions not possible with addFieldMapping.
    */
   public function prepare(stdClass $node, stdClass $row) {
+    dpm($node);
+    dpm($row);
     // Decode HTML entities from title and body.
     $node->title = html_entity_decode($node->title);
     $node->body = html_entity_decode($node->body);
@@ -192,7 +215,7 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $node->field_datetime[0]['value2'] = self::convertTimestamp($row->enadate);
 
     if (!empty($price)) {
-      
+
       $matches = array();
 
       // field_entry_price is supposed to be a number, so we sanitise it.
