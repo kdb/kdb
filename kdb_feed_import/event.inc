@@ -4,6 +4,7 @@
  * Import event feeds.
  */
 
+
 /**
  * Base class for all our migrations.
  */
@@ -66,7 +67,12 @@ class KDBFeedImportSource extends MigrateSource {
         'startdate' => $element->getElementsByTagName('startdate')->item(0)->nodeValue,
         'enddate' => $element->getElementsByTagName('enddate')->item(0)->nodeValue,
         'price' => $element->getElementsByTagName('price')->item(0)->nodeValue,
+        'images' => array(),
       );
+
+      foreach ($element->getElementsByTagName('image') as $img) {
+        $entry->images[] = $img->nodeValue;
+      }
 
       $institution = $element->getElementsByTagName('institution')->item(0)->getAttribute('id');
 
@@ -99,6 +105,7 @@ class KDBFeedImportSource extends MigrateSource {
       'email',
       'phone',
       'price',
+      'images',
     );
   }
 
@@ -211,8 +218,13 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $node->field_datetime[0]['value'] = self::convertTimestamp($row->startdate);
     $node->field_datetime[0]['value2'] = self::convertTimestamp($row->enddate);
 
-    if (!empty($price)) {
+    // Save files.
+    $node->field_list_image = array();
+    foreach ($row->images as $image_url) {
+      $node->field_list_image[] = self::saveFileFromURL($image_url);
+    }
 
+    if (!empty($price)) {
       $matches = array();
 
       // field_entry_price is supposed to be a number, so we sanitise it.
@@ -224,6 +236,73 @@ class KDBEventFeedImport extends KDBFeedImportBase {
       }
       else {
         $node->field_entry_price[0]['value'] = 0;
+      }
+    }
+  }
+
+  /**
+   * Save imported file to disk.
+   */
+  public static function saveFileFromURL($url) {
+    $ch = curl_init(urldecode($url));
+
+    // Create a temporary file for the download.
+    $tempfile = tempnam(file_directory_temp(), 'kdb_feed_import');
+    $fp = fopen($tempfile, "w");
+
+    // Write the downloaded data to the temporary file.
+    curl_setopt($ch, CURLOPT_FILE, $fp);
+
+    // Follow redirects.
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+
+    // Don't include headers in output.
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);
+
+    curl_exec($ch);
+    curl_close($ch);
+    fclose($fp);
+
+    // Get the original filename from the URL.
+    $url_parts = explode('/', parse_url($url, PHP_URL_PATH));
+    $filename = urldecode(array_pop($url_parts));
+
+    // Use transliteration module to sanitize the filename if possible.
+    if (function_exists('transliteration_clean_filename')) {
+      $filename = transliteration_clean_filename($filename);
+    }
+
+    // Make sure we have a suitable folder for saving the images.
+    $imagepath = file_create_path('kdb_feed_import');
+    $destination = $imagepath . '/' . $filename;
+
+    if (file_check_directory($imagepath, FILE_CREATE_DIRECTORY)) {
+      if (file_move($tempfile, $destination, FILE_EXISTS_REPLACE)) {
+        $file = array(
+          'filename' => $filename,
+          'filepath' => $destination,
+          'filemime' => file_get_mimetype($destination),
+          'filesize' => filesize($destination),
+          'destination' => $destination,
+          'status' => FILE_STATUS_PERMANENT,
+        );
+
+        // If file already exists, load its curent data and store it,
+        // before saving.
+        $query = db_query("SELECT * FROM {files} WHERE filepath = '%s'", array(
+          ':filepath' => $destination,
+        ));
+        if ($row = db_fetch_array($query)) {
+          $file = array_merge($row, $file);
+          drupal_write_record('files', $file, array('fid'));
+        }
+        // If not, create a new file entry.
+        else {
+          $file['timestamp'] = $_SERVER['REQUEST_TIME'];
+          drupal_write_record('files', $file);
+        }
+
+        return $file;
       }
     }
   }
