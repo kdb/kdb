@@ -41,6 +41,16 @@ projects[ding_tabroll][download][type] = "git"
 projects[ding_tabroll][download][url] = "https://github.com/kdb/ding_tabroll.git"
 projects[ding_tabroll][download][revision] = v1.0.1
 
+projects[ding_wayf][type] = module
+projects[ding_wayf][download][type] = git
+projects[ding_wayf][download][url] = https://github.com/dingproject/ding_wayf.git
+projects[ding_wayf][download][revision] = 289c8f4908588106b83b287a38ac7ada97925f86
+
+projects[ding_webtrends][type] = module
+projects[ding_webtrends][download][type] = git
+projects[ding_webtrends][download][url] = https://github.com/kdb/ding_webtrends.git
+projects[ding_webtrends][download][revision] = v1.0.0-rc.2
+
 projects[ding_wysiwyg_node_picker][type] = "module"
 projects[ding_wysiwyg_node_picker][download][type] = "git"
 projects[ding_wysiwyg_node_picker][download][url] = "https://github.com/dingproject/ding-wysiwyg-node-picker.git"
@@ -50,6 +60,9 @@ projects[tinymce_node_picker][subdir] = "contrib"
 projects[tinymce_node_picker][version] = "2.1"
 
 ; Additional contrib modules.
+projects[addthis][subdir] = "contrib"
+projects[addthis][version] = "3.0-beta2"
+
 projects[autoload][subdir] = contrib
 projects[autoload][version] = 2.1
 
@@ -61,6 +74,9 @@ projects[better_messages][version] = 1.13
 
 projects[dbtng][subdir] = contrib
 projects[dbtng][version] = 1.0-rc4
+
+projects[flag][subdir] = contrib
+projects[flag][version] = 2.0-beta6
 
 projects[l10n_update][subdir] = contrib
 projects[l10n_update][version] = 1.0-beta3
@@ -96,3 +112,10 @@ projects[cph-mobile][type] = theme
 projects[cph-mobile][download][type] = git
 projects[cph-mobile][download][url] = https://github.com/kdb/cph-mobile.git
 projects[cph-mobile][download][revision] = 0e65df0
+
+; Libraries
+
+libraries[emogrifier][download][type] = get
+libraries[emogrifier][download][url] = https://gist.github.com/gists/1344848/download
+libraries[emogrifier][directory_name] = emogrifier
+libraries[emogrifier][destination] = modules/ding_borger_api/ding_borger_api/lib
