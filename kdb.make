@@ -44,7 +44,7 @@ projects[ding_tabroll][download][revision] = v1.0.1
 projects[ding_wayf][type] = module
 projects[ding_wayf][download][type] = git
 projects[ding_wayf][download][url] = https://github.com/dingproject/ding_wayf.git
-projects[ding_wayf][download][revision] = 289c8f4908588106b83b287a38ac7ada97925f86
+projects[ding_wayf][download][revision] = 4eaf964aa2294e66d312d9f47675787fbb3abc51
 
 projects[ding_webtrends][type] = module
 projects[ding_webtrends][download][type] = git
