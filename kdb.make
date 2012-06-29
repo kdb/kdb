@@ -75,6 +75,9 @@ projects[better_messages][version] = 1.13
 projects[dbtng][subdir] = contrib
 projects[dbtng][version] = 1.0-rc4
 
+projects[elysia_cron][subdir] = contrib
+projects[elysia_cron][version] = 2.1
+
 projects[flag][subdir] = contrib
 projects[flag][version] = 2.0-beta6
 
@@ -86,6 +89,9 @@ projects[memcache][version] = 1.10
 
 projects[migrate][subdir] = contrib
 projects[migrate][version] = 2.3
+
+projects[module_filter][subdir] = contrib
+projects[module_filter][version] = 1.7
 
 projects[scheduler][subdir] = "contrib"
 projects[scheduler][version] = "1.8"
