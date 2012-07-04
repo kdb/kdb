@@ -57,16 +57,16 @@ class KDBFeedImportSource extends MigrateSource {
 
     foreach ($feed->getElementsByTagName('entry') as $element) {
       $entry = (object) array(
-        'id' => $element->getElementsByTagName('id')->item(0)->nodeValue,
-        'title' => $element->getElementsByTagName('title')->item(0)->nodeValue,
-        'published' => $element->getElementsByTagName('published')->item(0)->nodeValue,
-        'updated' => $element->getElementsByTagName('updated')->item(0)->nodeValue,
-        'author' => $element->getElementsByTagName('author')->item(0)->nodeValue,
-        'summary' => $element->getElementsByTagName('summary')->item(0)->nodeValue,
-        'content' => $element->getElementsByTagName('content')->item(0)->nodeValue,
-        'startdate' => $element->getElementsByTagName('startdate')->item(0)->nodeValue,
-        'enddate' => $element->getElementsByTagName('enddate')->item(0)->nodeValue,
-        'price' => $element->getElementsByTagName('price')->item(0)->nodeValue,
+        'id' => self::getXMLNodeValue($element, 'id'),
+        'title' => self::getXMLNodeValue($element, 'title'),
+        'published' => self::getXMLNodeValue($element, 'published'),
+        'updated' => self::getXMLNodeValue($element, 'updated'),
+        'author' => self::getXMLNodeValue($element, 'author'),
+        'summary' => self::getXMLNodeValue($element, 'summary'),
+        'content' => self::getXMLNodeValue($element, 'content'),
+        'startdate' => self::getXMLNodeValue($element, 'startdate'),
+        'enddate' => self::getXMLNodeValue($element, 'enddate'),
+        'price' => self::getXMLNodeValue($element, 'price'),
         'images' => array(),
       );
 
@@ -135,6 +135,27 @@ class KDBFeedImportSource extends MigrateSource {
 
       return $this->entries[$position];
     }
+  }
+
+  /**
+   * Get text content of named XML element.
+   *
+   * @param DOMNode $node
+   *   The DOM node (full document, element, etc.) to work on.
+   * @param string $name
+   *   Name of the field to get.
+   *
+   * @return string
+   *   Content of the specified element, empty string if not found.
+   */
+  public static function getXMLNodeValue(DOMNode $node, $name) {
+    $elem = $node->getElementsByTagName($name)->item(0);
+  
+    if ($elem) {
+      return $elem->nodeValue;
+    }
+
+    return '';
   }
 }
 
