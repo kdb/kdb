@@ -86,6 +86,13 @@ class KDBFeedImportSource extends MigrateSource {
     }
   }
 
+  /**                                                                                                                                                                                                                                                                                                                                                                                                                                
+   * Provide a toString method for Migrate.
+   */
+  public function __toString() {
+    return get_class($this);
+  }
+
   /**
    * Return the list of fields this source provides.
    */
