@@ -24,7 +24,7 @@ projects[ding_eresource][download][revision] = 6.x-1.2
 projects[ding_event_feeds][type] = module
 projects[ding_event_feeds][download][type] = git
 projects[ding_event_feeds][download][url] = https://github.com/kdb/ding-event-feeds.git
-projects[ding_event_feeds][download][revision] = 6.x-1.0
+projects[ding_event_feeds][download][revision] = 6.x-1.1
 
 projects[ding_faq][type] = "module"
 projects[ding_faq][download][type] = "git"
