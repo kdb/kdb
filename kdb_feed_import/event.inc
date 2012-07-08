@@ -23,6 +23,13 @@ abstract class KDBFeedImportBase extends XMLMigration {
     // The path to the migration files.
     $this->migration_files_path = file_directory_path() . '/smsq_migrate/';
   }
+
+  /**
+   * Provide a toString method for Migrate.
+   */
+  public function __toString() {
+    return get_class($this);
+  }
 }
 
 /**
@@ -86,7 +93,7 @@ class KDBFeedImportSource extends MigrateSource {
     }
   }
 
-  /**                                                                                                                                                                                                                                                                                                                                                                                                                                
+  /**
    * Provide a toString method for Migrate.
    */
   public function __toString() {
@@ -157,7 +164,7 @@ class KDBFeedImportSource extends MigrateSource {
    */
   public static function getXMLNodeValue(DOMNode $node, $name) {
     $elem = $node->getElementsByTagName($name)->item(0);
-  
+
     if ($elem) {
       return $elem->nodeValue;
     }
@@ -191,14 +198,15 @@ class KDBEventFeedImport extends KDBFeedImportBase {
       MigrateDestinationNode::getKeySchema()
     );
 
-    // URL for event feed.
+    // URL for event feed. The items and list is the same feed.
     $this->list_url = variable_get('kdb_feed_import_event_url', FALSE);
     $this->item_url = $this->list_url;
 
+    // Migrate from the feed.
+    $this->source = new KDBFeedImportSource($this->list_url);
+
     // Migrate to event nodes.
     $this->destination = new MigrateDestinationNode('event');
-
-    $this->source = new KDBFeedImportSource(variable_get('kdb_feed_import_event_url', FALSE));
 
     // Maps the source fields to node values.
     $this->addFieldMapping('title', 'title');
