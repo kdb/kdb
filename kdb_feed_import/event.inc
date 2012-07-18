@@ -213,7 +213,6 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $this->addFieldMapping('body', 'content');
     $this->addFieldMapping('created', 'published');
     $this->addFieldMapping('changed', 'updated');
-    $this->addFieldMapping('field_entry_price', 'price');
     $this->addFieldMapping('field_teaser', 'summary');
     $this->addFieldMapping('name', 'author');
     $this->addFieldMapping('field_library_ref', 'institution');
@@ -260,18 +259,15 @@ class KDBEventFeedImport extends KDBFeedImportBase {
       $node->field_list_image[] = self::saveFileFromURL($image_url);
     }
 
-    if (!empty($price)) {
+    if (!empty($row->price)) {
       $matches = array();
 
       // field_entry_price is supposed to be a number, so we sanitise it.
-      if (preg_match('/(\d\d+(?:,\d\d)?)/', str_replace('.', '', $price), $matches) && !empty($matches[1])) {
+      if (preg_match('/(\d\d+(?:,\d\d)?)/', str_replace('.', '', $row->price), $matches) && !empty($matches[1])) {
         $node->field_entry_price[0]['value'] = str_replace(',', '.', $matches[1]);
 
         // Add the price info to the body text.
         $node->body = $node->body . "\n\n\n\n<p><strong>Pris:</strong> " . $price . '</p>';
-      }
-      else {
-        $node->field_entry_price[0]['value'] = 0;
       }
     }
   }
