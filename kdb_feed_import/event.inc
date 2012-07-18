@@ -267,7 +267,7 @@ class KDBEventFeedImport extends KDBFeedImportBase {
         $node->field_entry_price[0]['value'] = str_replace(',', '.', $matches[1]);
 
         // Add the price info to the body text.
-        $node->body = $node->body . "\n\n\n\n<p><strong>Pris:</strong> " . $price . '</p>';
+        $node->body = $node->body . "\r\n\r\n<p><strong>Pris:</strong> " . check_plain($row->price) . '</p>';
       }
     }
   }
