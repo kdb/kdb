@@ -39,7 +39,7 @@ projects[ding_library_hours][download][revision] = "v1.0.0"
 projects[ding_tabroll][type] = "module"
 projects[ding_tabroll][download][type] = "git"
 projects[ding_tabroll][download][url] = "https://github.com/kdb/ding_tabroll.git"
-projects[ding_tabroll][download][revision] = v1.0.1
+projects[ding_tabroll][download][revision] = v1.0.2
 
 projects[ding_wayf][type] = module
 projects[ding_wayf][download][type] = git
