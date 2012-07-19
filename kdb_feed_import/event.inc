@@ -246,8 +246,8 @@ class KDBEventFeedImport extends KDBFeedImportBase {
    */
   public function prepare(stdClass $node, stdClass $row) {
     // Decode HTML entities from title and body.
-    $node->title = html_entity_decode($node->title, ENT_COMPAT | ENT_XML1, 'UTF-8');
-    $node->body = html_entity_decode($node->body, ENT_COMPAT | ENT_XML1, 'UTF-8');
+    $node->title = html_entity_decode($node->title, ENT_QUOTES | ENT_XML1, 'UTF-8');
+    $node->body = html_entity_decode($node->body, ENT_QUOTES | ENT_XML1, 'UTF-8');
 
     // Start and end time are in the same field.
     $node->field_datetime[0]['value'] = self::convertTimestamp($row->startdate);
