@@ -227,19 +227,6 @@ class KDBEventFeedImport extends KDBFeedImportBase {
   }
 
   /**
-   * Convert ISO8601 timestamp to a naive format so MySQL can understand it.
-   */
-  public static function convertTimestamp($timestamp) {
-    // Nothing to do here.
-    if (empty($timestamp)) {
-      return;
-    }
-
-    $time = strtotime($timestamp);
-    return date('Y-m-d H:i:s', $time);
-  }
-
-  /**
    * Alter each node before saving.
    *
    * Here we do the manual conversions not possible with addFieldMapping.
@@ -250,8 +237,11 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $node->body = html_entity_decode($node->body, ENT_QUOTES | ENT_XML1, 'UTF-8');
 
     // Start and end time are in the same field.
-    $node->field_datetime[0]['value'] = self::convertTimestamp($row->startdate);
-    $node->field_datetime[0]['value2'] = self::convertTimestamp($row->enddate);
+    $startdate = new DateTime($row->startdate);
+    $enddate = new DateTime($row->enddate);
+    $node->field_datetime[0]['value'] = $startdate->format('Y-m-d H:i:s');
+    $node->field_datetime[0]['value2'] = $enddate->format('Y-m-d H:i:s');
+    $node->field_datetime[0]['timezone'] = $startdate->getTimezone()->getName();
 
     // Save files.
     $node->field_list_image = array();
