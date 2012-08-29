@@ -95,26 +95,10 @@ projects[scheduler][version] = "1.8"
 
 ; Mobile site
 
-projects[alternator][type] = theme
-projects[alternator][download][type] = git
-projects[alternator][download][revision] = 67dc32e
-projects[alternator][download][url] = https://github.com/kdb/alternator.git
-
-projects[browscap][subdir] = contrib
-projects[browscap][version] = 1.5
-
 projects[cph-mobile][type] = theme
 projects[cph-mobile][download][type] = git
 projects[cph-mobile][download][url] = https://github.com/kdb/cph-mobile.git
 projects[cph-mobile][download][revision] = 0e65df0
-
-projects[ding-mobile][type] = module
-projects[ding-mobile][download][type] = git
-projects[ding-mobile][download][url] = https://github.com/kdb/ding-mobile.git
-projects[ding-mobile][download][revision] = 9fbc4e3
-
-projects[mobile_tools][subdir] = contrib
-projects[mobile_tools][version] = 2.3
 
 ; Libraries
 
