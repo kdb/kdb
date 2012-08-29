@@ -66,9 +66,6 @@ projects[autoload][version] = 2.1
 projects[addthis][subdir] = contrib
 projects[addthis][version] = 3.0-beta2
 
-projects[backup_migrate][subdir] = contrib
-projects[backup_migrate][version] = 2.5
-
 projects[better_messages][subdir] = contrib
 projects[better_messages][version] = 1.13
 
