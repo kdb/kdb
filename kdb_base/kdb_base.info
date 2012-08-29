@@ -1,7 +1,6 @@
 core = "6.x"
 dependencies[] = "ding_base"
 ;These additional modules have been added to the Copenhagen Ding! site
-dependencies[] = "backup_migrate"
 dependencies[] = "ding_borger_api"
 dependencies[] = "ding_eresource"
 dependencies[] = "ding_faq"
