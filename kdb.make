@@ -11,34 +11,34 @@ projects[copenhagen][download][url] = https://github.com/kdb/copenhagen.git
 projects[copenhagen][download][revision] = e19803b
 
 ; Additional Ding-modules.
-projects[ding_borger_api][type] = "module"
-projects[ding_borger_api][download][type] = "git"
-projects[ding_borger_api][download][url] = "https://github.com/dingproject/ding-borger-api.git"
-projects[ding_borger_api][download][revision] = "v1.0.4"
+projects[ding_borger_api][type] = module
+projects[ding_borger_api][download][type] = git
+projects[ding_borger_api][download][url] = https://github.com/dingproject/ding-borger-api.git
+projects[ding_borger_api][download][revision] = v1.0.4
 
-projects[ding_eresource][type] = "module"
-projects[ding_eresource][download][type] = "git"
-projects[ding_eresource][download][url] = "https://github.com/kdb/ding-eresource.git"
-projects[ding_eresource][download][revision] = 43bf4fa
+projects[ding_eresource][type] = module
+projects[ding_eresource][download][type] = git
+projects[ding_eresource][download][url] = https://github.com/kdb/ding-eresource.git
+projects[ding_eresource][download][revision] = 6.x-1.3
 
 projects[ding_event_feeds][type] = module
 projects[ding_event_feeds][download][type] = git
 projects[ding_event_feeds][download][url] = https://github.com/kdb/ding-event-feeds.git
 projects[ding_event_feeds][download][revision] = 6.x-1.1
 
-projects[ding_faq][type] = "module"
-projects[ding_faq][download][type] = "git"
-projects[ding_faq][download][url] = "https://github.com/kdb/ding-faq.git"
-projects[ding_faq][download][revision] = "v1.0.0-beta.3"
+projects[ding_faq][type] = module
+projects[ding_faq][download][type] = git
+projects[ding_faq][download][url] = https://github.com/kdb/ding-faq.git
+projects[ding_faq][download][revision] = v1.0.0-beta.3
 
-projects[ding_library_hours][type] = "module"
-projects[ding_library_hours][download][type] = "git"
-projects[ding_library_hours][download][url] = "https://github.com/kdb/ding-library-hours.git"
-projects[ding_library_hours][download][revision] = "v1.0.0"
+projects[ding_library_hours][type] = module
+projects[ding_library_hours][download][type] = git
+projects[ding_library_hours][download][url] = https://github.com/kdb/ding-library-hours.git
+projects[ding_library_hours][download][revision] = v1.0.0
 
-projects[ding_tabroll][type] = "module"
-projects[ding_tabroll][download][type] = "git"
-projects[ding_tabroll][download][url] = "https://github.com/kdb/ding_tabroll.git"
+projects[ding_tabroll][type] = module
+projects[ding_tabroll][download][type] = git
+projects[ding_tabroll][download][url] = https://github.com/kdb/ding_tabroll.git
 projects[ding_tabroll][download][revision] = v1.0.3
 
 projects[ding_wayf][type] = module
@@ -51,13 +51,13 @@ projects[ding_webtrends][download][type] = git
 projects[ding_webtrends][download][url] = https://github.com/kdb/ding_webtrends.git
 projects[ding_webtrends][download][revision] = v1.0.0-rc.2
 
-projects[ding_wysiwyg_node_picker][type] = "module"
-projects[ding_wysiwyg_node_picker][download][type] = "git"
-projects[ding_wysiwyg_node_picker][download][url] = "https://github.com/dingproject/ding-wysiwyg-node-picker.git"
-projects[ding_wysiwyg_node_picker][download][revision] = "v1.0.0"
+projects[ding_wysiwyg_node_picker][type] = module
+projects[ding_wysiwyg_node_picker][download][type] = git
+projects[ding_wysiwyg_node_picker][download][url] = https://github.com/dingproject/ding-wysiwyg-node-picker.git
+projects[ding_wysiwyg_node_picker][download][revision] = v1.0.0
 
-projects[tinymce_node_picker][subdir] = "contrib"
-projects[tinymce_node_picker][version] = "2.1"
+projects[tinymce_node_picker][subdir] = contrib
+projects[tinymce_node_picker][version] = 2.1
 
 ; Additional contrib modules.
 projects[autoload][subdir] = contrib
@@ -90,8 +90,8 @@ projects[migrate][version] = 2.4
 projects[module_filter][subdir] = contrib
 projects[module_filter][version] = 1.7
 
-projects[scheduler][subdir] = "contrib"
-projects[scheduler][version] = "1.8"
+projects[scheduler][subdir] = contrib
+projects[scheduler][version] = 1.8
 
 ; Mobile site
 
