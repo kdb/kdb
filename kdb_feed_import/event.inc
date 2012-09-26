@@ -243,6 +243,9 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $node->field_datetime[0]['value2'] = $enddate->format('Y-m-d H:i:s');
     $node->field_datetime[0]['timezone'] = $startdate->getTimezone()->getName();
 
+    // Set the unpublish-time to the the end time for the event plus two hours.
+    $node->unpublish_on = $enddate->getTimestamp() + 7200;
+
     // Save files.
     $node->field_list_image = array();
     foreach ($row->images as $image_url) {
