@@ -108,7 +108,7 @@ function kdb_panels_default_page_manager_handlers() {
       ),
       'override_title' => 0,
       'override_title_text' => '',
-      'campaign_count' => 4,
+      'campaign_count' => 6,
       'campaign_offset' => 0,
     );
     $pane->cache = array(
