@@ -185,6 +185,10 @@ class KDBEventFeedImport extends KDBFeedImportBase {
 
     $this->description = 'Migrate events from event feeds.';
 
+    // Set a default time zone, so the imported events will be have the
+    // right date/time settings.
+    $this->timezone = new DateTimeZone('Europe/Copenhagen');
+
     // The source ID here is the one retrieved from the XML feed, and is
     // used to identify the specific item's file.
     $this->map = new MigrateSQLMap($this->getMachineName(),
@@ -236,9 +240,13 @@ class KDBEventFeedImport extends KDBFeedImportBase {
     $node->title = html_entity_decode($node->title, ENT_QUOTES | ENT_XML1, 'UTF-8');
     $node->body = html_entity_decode($node->body, ENT_QUOTES | ENT_XML1, 'UTF-8');
 
-    // Start and end time are in the same field.
+    // Convert the import string to a datetime object.
     $startdate = new DateTime($row->startdate);
     $enddate = new DateTime($row->enddate);
+
+    // Set the correct timezone and save the output string.
+    $startdate->setTimezone($this->timezone);
+    $enddate->setTimezone($this->timezone);
     $node->field_datetime[0]['value'] = $startdate->format('Y-m-d H:i:s');
     $node->field_datetime[0]['value2'] = $enddate->format('Y-m-d H:i:s');
     $node->field_datetime[0]['timezone'] = $startdate->getTimezone()->getName();
