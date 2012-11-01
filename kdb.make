@@ -29,7 +29,7 @@ projects[ding_event_feeds][download][revision] = 6.x-1.1
 projects[ding_faq][type] = module
 projects[ding_faq][download][type] = git
 projects[ding_faq][download][url] = https://github.com/kdb/ding-faq.git
-projects[ding_faq][download][revision] = v1.0.0
+projects[ding_faq][download][revision] = v1.0.1
 
 projects[ding_library_hours][type] = module
 projects[ding_library_hours][download][type] = git
