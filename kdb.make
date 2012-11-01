@@ -8,7 +8,7 @@ core = 6.x
 projects[copenhagen][type] = theme
 projects[copenhagen][download][type] = git
 projects[copenhagen][download][url] = https://github.com/kdb/copenhagen.git
-projects[copenhagen][download][revision] = 353b4a2
+projects[copenhagen][download][revision] = 5f25539
 
 ; Additional Ding-modules.
 projects[ding_borger_api][type] = module
@@ -29,7 +29,7 @@ projects[ding_event_feeds][download][revision] = 6.x-1.1
 projects[ding_faq][type] = module
 projects[ding_faq][download][type] = git
 projects[ding_faq][download][url] = https://github.com/kdb/ding-faq.git
-projects[ding_faq][download][revision] = v1.0.0-rc.1
+projects[ding_faq][download][revision] = v1.0.0
 
 projects[ding_library_hours][type] = module
 projects[ding_library_hours][download][type] = git
