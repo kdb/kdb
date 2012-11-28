@@ -119,10 +119,11 @@ function kdb_feeds_views_default_views() {
     'ding_audience' => '5',
     'ding_keywords' => '4',
     'ding_tags' => '2',
-    'ding_teaser' => '',
-    'ding_image' => '',
-    'ding_date' => '',
-    'ding_entry_price' => '',
+    'ding_teaser' => 'field_teaser',
+    'ding_image' => 'field_list_image',
+    'ding_date' => 'field_datetime',
+    'ding_entry_price' => 'field_entry_price',
+    'ding_library' => 'field_library_ref',
   ));
   $handler->override_option('path', 'kdb_feeds/event.xml');
   $handler->override_option('menu', array(
