@@ -100,7 +100,7 @@ function kdb_feeds_views_default_views() {
     'ding_entry_price' => '',
     'ding_library' => 'field_library_ref',
   ));
-  $handler->override_option('path', 'kdb_feeds/event.xml');
+  $handler->override_option('path', 'kdb_feeds/article.xml');
   $handler->override_option('menu', array(
     'type' => 'none',
     'title' => '',
