@@ -205,6 +205,41 @@ function kdb_feeds_views_default_views() {
       'field' => 'sourceid1',
       'relationship' => 'none',
     ),
+    'date_filter_1' => array(
+      'operator' => '>=',
+      'value' => array(
+        'min' => array(
+          'date' => '',
+        ),
+        'max' => array(
+          'date' => '',
+        ),
+        'value' => array(
+          'date' => '',
+        ),
+        'default_date' => 'now',
+        'default_to_date' => '',
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'date_fields' => array(
+        'node_data_field_datetime.field_datetime_value' => 'node_data_field_datetime.field_datetime_value',
+      ),
+      'date_method' => 'OR',
+      'granularity' => 'day',
+      'form_type' => 'date_text',
+      'default_date' => 'now',
+      'default_to_date' => '',
+      'year_range' => '-3:+3',
+      'id' => 'date_filter_1',
+      'table' => 'node',
+      'field' => 'date_filter',
+      'relationship' => 'none',
+    ),
   ));
   $handler->override_option('access', array(
     'type' => 'none',
