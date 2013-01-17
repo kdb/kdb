@@ -76,7 +76,7 @@ projects[elysia_cron][subdir] = contrib
 projects[elysia_cron][version] = 2.1
 
 projects[flag][subdir] = contrib
-projects[flag][version] = 2.0-beta8
+projects[flag][version] = 2.1
 
 projects[l10n_update][subdir] = contrib
 projects[l10n_update][version] = 1.0-beta3
@@ -85,7 +85,7 @@ projects[memcache][subdir] = contrib
 projects[memcache][version] = 1.10
 
 projects[migrate][subdir] = contrib
-projects[migrate][version] = 2.4
+projects[migrate][version] = 2.5
 
 projects[module_filter][subdir] = contrib
 projects[module_filter][version] = 1.7
