@@ -19,7 +19,7 @@ projects[ding_borger_api][download][revision] = v1.0.4
 projects[ding_eresource][type] = module
 projects[ding_eresource][download][type] = git
 projects[ding_eresource][download][url] = https://github.com/kdb/ding-eresource.git
-projects[ding_eresource][download][revision] = 855347b
+projects[ding_eresource][download][revision] = db24519
 
 projects[ding_event_feeds][type] = module
 projects[ding_event_feeds][download][type] = git
