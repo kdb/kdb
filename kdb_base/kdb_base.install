@@ -43,3 +43,10 @@ function kdb_base_update_6003() {
 function kdb_base_update_6004() {
     drupal_install_modules(array('ding_eresource', 'ding_faq'));
 }
+
+/**
+ * Install Ding Wayfinder module.
+ */
+function kdb_base_update_6005() {
+    drupal_install_modules(array('ding_wayfinder'));
+}
