@@ -98,6 +98,9 @@ projects[module_filter][version] = 1.7
 projects[scheduler][subdir] = contrib
 projects[scheduler][version] = 1.8
 
+projects[sslproxy][subdir] = contrib
+projects[sslproxy][version] = 1.0
+
 ; Mobile site
 
 projects[cph-mobile][type] = theme
